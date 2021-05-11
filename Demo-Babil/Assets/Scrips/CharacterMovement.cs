@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class CharacterMovement : MonoBehaviour
     
     [SerializeField] private Animator _animator;
     [SerializeField] private Rigidbody _rigidbody;
+
+    [CanBeNull] public Joystick _joystick;
 
     public float moveSpeed;
     public float turnTime;
@@ -28,8 +31,8 @@ public class CharacterMovement : MonoBehaviour
 
     private void Move()
     {
-        float hor = Input.GetAxisRaw("Horizontal");
-        float ver = Input.GetAxisRaw("Vertical");
+        float hor = _joystick.Horizontal;
+        float ver = _joystick.Vertical;
         Vector3 direction = new Vector3(hor, 0, ver).normalized;
 
         if (direction.magnitude >= 0.1)
